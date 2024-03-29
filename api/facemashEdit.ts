@@ -12,15 +12,15 @@ router.put("/:userId", (req, res) => {
         return res.status(400).json({ error: "User ID is required" });
     }
 
-    // เพื่อความสะดวกในการอัปเดตข้อมูล คุณสามารถใช้ req.body เพื่อรับข้อมูลที่ต้องการอัปเดต
+   //ดึงข้อมูลที่ถูกส่งมาในร่างของคำขอ HTTP PUT มาเก็บไว้ในตัวแปร 
     const updatedData = req.body;
-
+    //ตรวจสอบว่ามีข้อมูลที่อัพเดตหรือไม่ ถ้าไม่มีจะส่งข้อความข้อผิดพลาดกลับไปว่า "Updated data is required" ด้วยสถานะการตอบสนอง 400Bad Request)
     if (!updatedData) {
         return res.status(400).json({ error: "Updated data is required" });
     }
-
+    //ดึงข้อมูล first_name, last_name, password, และ profile จาก updatedData ออกมาใช้งาน
     const { first_name, last_name, password, profile } = updatedData;
-
+    //ตรวจสอบและสร้าง query สำหรับการอัปเดตข้อมูลในฐานข้อมูล
     let updateQuery = 'UPDATE users SET ';
     const updateParams = [];
 
